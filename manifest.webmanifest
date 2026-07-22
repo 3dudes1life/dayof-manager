@@ -1,9 +1,9 @@
 {
-  "name": "DayOf Manager",
+  "name": "DayOf Manager V0.2",
   "short_name": "DayOf",
   "start_url": "./",
   "display": "standalone",
   "background_color": "#09090f",
   "theme_color": "#09090f",
-  "description": "Build and run live event schedules, people, issues, and handoffs."
+  "description": "Live event operations dashboard with quick access to schedule, people, issues, and event tools."
 }
