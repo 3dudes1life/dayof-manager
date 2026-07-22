@@ -1,0 +1,183 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,user-scalable=no">
+<meta name="theme-color" content="#09090f">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<title>DayOf Manager</title>
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="stylesheet" href="style-v01.css">
+</head>
+<body>
+<div id="app" class="app-shell">
+<header class="app-header">
+  <div class="brand"><span class="brand-mark">D</span><div><span class="kicker">DAYOF MANAGER</span><strong id="headerTitle">Events</strong></div></div>
+  <button id="moreButton" class="icon-button">•••</button>
+</header>
+
+<main class="screen-stack">
+<section class="screen active" data-screen="events">
+  <div class="hero-card">
+    <span class="eyebrow">LIVE EVENT OPERATIONS</span>
+    <h1>Run the day.<br>Not the chaos.</h1>
+    <p>Create a run of show, manage people, track issues, and keep the team aligned during a live event.</p>
+    <button id="createFirstEvent" class="primary-button">Create Event</button>
+  </div>
+  <div class="section-header"><div><span class="kicker">YOUR WORKSPACE</span><h2>Events</h2></div><button id="createEvent" class="small-primary">New Event</button></div>
+  <div id="eventList" class="stack-list"></div>
+</section>
+
+<section class="screen" data-screen="builder">
+  <div id="builderEmpty" class="empty-state">Select an event to edit.</div>
+  <div id="builderContent" class="hidden">
+    <div class="event-identity-card">
+      <div class="date-tile"><b id="builderDay">--</b><span id="builderMonth">---</span></div>
+      <div class="event-copy"><span class="eyebrow">EVENT SETUP</span><h1 id="builderName">Untitled Event</h1><p id="builderMeta">Venue · Date</p></div>
+      <button id="editEventDetails" class="small-button">Edit</button>
+    </div>
+    <div class="builder-tabs">
+      <button class="active" data-builder-tab="schedule">Schedule</button>
+      <button data-builder-tab="people">People</button>
+      <button data-builder-tab="team">Team</button>
+      <button data-builder-tab="settings">Settings</button>
+    </div>
+
+    <section class="builder-panel active" data-builder-panel="schedule">
+      <div class="section-header compact"><div><span class="kicker">RUN OF SHOW</span><h2>Schedule</h2></div><button id="addScheduleBlock" class="small-primary">Add Block</button></div>
+      <div class="two-col">
+        <label class="secondary-button file-button">Import CSV<input id="csvInput" type="file" accept=".csv,text/csv"></label>
+        <button id="downloadCsvTemplate" class="secondary-button">CSV Template</button>
+      </div>
+      <div id="builderScheduleList" class="stack-list"></div>
+    </section>
+
+    <section class="builder-panel" data-builder-panel="people">
+      <div class="section-header compact"><div><span class="kicker">CONTACTS</span><h2>People</h2></div><button id="addPerson" class="small-primary">Add Person</button></div>
+      <div id="builderPeopleList" class="stack-list"></div>
+    </section>
+
+    <section class="builder-panel" data-builder-panel="team">
+      <div class="share-card">
+        <span class="eyebrow">TEAM ACCESS</span>
+        <h2>Invite the day-of team</h2>
+        <p>V0.1 creates a test invite package. Live multi-device access comes with the Cloudflare beta.</p>
+        <div class="access-code"><span>EVENT CODE</span><strong id="eventCode">------</strong></div>
+        <div class="two-col"><button id="copyInvite" class="primary-button">Copy Invite</button><button id="regenerateCode" class="secondary-button">New Code</button></div>
+      </div>
+      <div class="section-header compact"><div><span class="kicker">ROLES</span><h2>Team</h2></div><button id="addTeamMember" class="small-primary">Add</button></div>
+      <div id="teamList" class="stack-list"></div>
+    </section>
+
+    <section class="builder-panel" data-builder-panel="settings">
+      <div class="settings-list">
+        <button id="launchEvent"><span><b>Launch Day-of Mode</b><small>Open the live operational dashboard</small></span><i>→</i></button>
+        <button id="duplicateEvent"><span><b>Duplicate Event</b><small>Create a reusable copy</small></span><i>＋</i></button>
+        <button id="exportEvent"><span><b>Export Backup</b><small>Download this event as JSON</small></span><i>↓</i></button>
+        <label class="settings-file"><span><b>Import Backup</b><small>Restore an event JSON file</small></span><i>↑</i><input id="jsonInput" type="file" accept=".json"></label>
+        <button id="deleteEvent" class="danger-row"><span><b>Delete Event</b><small>Remove from this device</small></span><i>×</i></button>
+      </div>
+    </section>
+  </div>
+</section>
+
+<section class="screen day-screen" data-screen="live">
+  <div class="day-header-card"><div><span id="liveVenue" class="eyebrow">VENUE</span><h1 id="liveEventName">Event</h1><p id="liveDate">Date</p></div><span class="status-pill">LIVE</span></div>
+  <div class="live-card">
+    <div class="live-label"><i></i><span>LIVE NOW</span><b id="liveDelayBadge"></b></div>
+    <span id="liveType" class="block-type">PROGRAM</span>
+    <h2 id="liveTitle">No schedule blocks</h2>
+    <p id="liveSubtitle">Build the run of show first.</p>
+    <div class="time-row"><strong id="liveRange">—</strong><span id="remaining">—</span></div>
+    <div class="progress"><i id="liveProgress"></i></div>
+    <button id="completeCurrent" class="primary-button">Complete Block</button>
+    <div class="three-col"><button id="readyCurrent">Stage Ready</button><button id="delayCurrent">Delay</button><button id="logIssueFromLive">Issue</button></div>
+  </div>
+  <div class="next-grid">
+    <article><span>NEXT</span><h3 id="nextTitle">—</h3><p id="nextMeta">—</p></article>
+    <article><span>AFTER</span><h3 id="afterTitle">—</h3><p id="afterMeta">—</p></article>
+  </div>
+  <div class="metrics-grid">
+    <button data-day-nav="people"><strong id="peopleMetric">0/0</strong><span>People In</span></button>
+    <button data-day-nav="issues"><strong id="issueMetric">0</strong><span>Open Issues</span></button>
+    <button data-day-nav="schedule"><strong id="completeMetric">0/0</strong><span>Complete</span></button>
+  </div>
+</section>
+
+<section class="screen day-screen" data-screen="schedule">
+  <div class="page-title"><span class="eyebrow">RUN OF SHOW</span><h1>Schedule</h1></div>
+  <div id="dayScheduleList" class="stack-list"></div>
+</section>
+
+<section class="screen day-screen" data-screen="issues">
+  <div class="page-title-row"><div><span class="eyebrow">PRODUCTION</span><h1>Issues</h1></div><button id="addIssue" class="round-add">+</button></div>
+  <div class="issue-overview"><div><span class="eyebrow">CURRENT STATUS</span><strong id="issueSummary">0 Open Issues</strong><small id="issueSummaryText">Production is clear.</small></div><span id="issueStatePill" class="clear">CLEAR</span></div>
+  <div class="section-label">QUICK LOG</div>
+  <div class="issue-shortcuts">
+    <button data-quick-issue="Late Arrival"><b>Late</b><small>Arrival</small></button>
+    <button data-quick-issue="Missing Music"><b>Missing</b><small>Music</small></button>
+    <button data-quick-issue="Technical Issue"><b>Technical</b><small>Sound / Stage</small></button>
+    <button data-quick-issue="Medical / Safety"><b>Safety</b><small>Medical</small></button>
+  </div>
+  <div class="section-label">OPEN ISSUES</div>
+  <div id="issueList" class="stack-list"></div>
+</section>
+
+<section class="screen day-screen people-screen" data-screen="people">
+  <div class="page-title"><span class="eyebrow">TODAY</span><h1>People</h1></div>
+  <div id="dayPeopleList" class="stack-list"></div>
+  <div class="handoff-card">
+    <span class="eyebrow">HANDOFF NOTES</span>
+    <textarea id="handoffNotes" placeholder="What changed? What needs attention?"></textarea>
+    <div class="two-col"><button id="copyHandoff">Copy</button><button id="saveHandoff" class="primary-button">Save</button></div>
+  </div>
+</section>
+</main>
+
+<nav id="mainNav" class="bottom-nav">
+  <button class="active" data-main-tab="events"><span>◇</span><small>Events</small></button>
+  <button data-main-tab="builder"><span>▤</span><small>Builder</small></button>
+</nav>
+<nav id="dayNav" class="bottom-nav four hidden">
+  <button class="active" data-day-tab="live"><span>⌂</span><small>Live</small></button>
+  <button data-day-tab="schedule"><span>▤</span><small>Schedule</small></button>
+  <button data-day-tab="issues"><span>!</span><small>Issues</small></button>
+  <button data-day-tab="people"><span>☎</span><small>People</small></button>
+</nav>
+</div>
+
+<dialog id="eventDialog"><form method="dialog" id="eventForm">
+<h2 id="eventDialogTitle">Create Event</h2><input type="hidden" name="id">
+<label>Event name<input name="name" required></label><label>Venue<input name="venue"></label><label>Date<input name="date" required type="date"></label>
+<div class="two-col-fields"><label>Start<input name="start" type="time"></label><label>End<input name="end" type="time"></label></div>
+<label>Event manager<input name="manager"></label><label>Accent color<select name="accent"><option value="pink">Pink</option><option value="blue">Blue</option><option value="green">Green</option><option value="orange">Orange</option><option value="purple">Purple</option></select></label>
+<div class="dialog-actions"><button value="cancel">Cancel</button><button class="primary-button" value="default">Save Event</button></div>
+</form></dialog>
+
+<dialog id="blockDialog"><form method="dialog" id="blockForm">
+<h2 id="blockDialogTitle">Add Schedule Block</h2><input type="hidden" name="id">
+<label>Title<input name="title" required></label>
+<div class="two-col-fields"><label>Start<input name="start" required type="time"></label><label>End<input name="end" required type="time"></label></div>
+<label>Type<select name="type"><option value="setup">Setup</option><option value="performance">Performance</option><option value="transition">Transition</option><option value="program">Program</option><option value="break">Break</option><option value="closing">Closing</option></select></label>
+<label>Subtitle<input name="subtitle"></label><label>Assigned person<select name="personId" id="blockPersonSelect"><option value="">None</option></select></label><label>Notes<textarea name="notes"></textarea></label>
+<div class="dialog-actions"><button value="cancel">Cancel</button><button class="primary-button" value="default">Save Block</button></div>
+</form></dialog>
+
+<dialog id="personDialog"><form method="dialog" id="personForm">
+<h2 id="personDialogTitle">Add Person</h2><input type="hidden" name="id">
+<label>Name<input name="name" required></label><label>Role<input name="role"></label><label>Arrival<input name="arrival" type="time"></label><label>Phone<input name="phone"></label><label>Email<input name="email"></label><label>Notes<textarea name="notes"></textarea></label>
+<div class="dialog-actions"><button value="cancel">Cancel</button><button class="primary-button" value="default">Save Person</button></div>
+</form></dialog>
+
+<dialog id="teamDialog"><form method="dialog" id="teamForm"><h2>Add Team Member</h2><label>Name<input name="name" required></label><label>Role<select name="role"><option>Event Manager</option><option>Stage Manager</option><option>Audio</option><option>Talent Coordinator</option><option>Security</option><option>Volunteer</option><option>Viewer</option></select></label><div class="dialog-actions"><button value="cancel">Cancel</button><button class="primary-button" value="default">Add Member</button></div></form></dialog>
+
+<dialog id="issueDialog"><form method="dialog" id="issueForm"><h2>Log Issue</h2><label>Issue<input name="title" required></label><label>Details<textarea name="details"></textarea></label><label>Owner<input name="owner"></label><div class="dialog-actions"><button value="cancel">Cancel</button><button class="primary-button" value="default">Save Issue</button></div></form></dialog>
+
+<dialog id="delayDialog"><form method="dialog"><h2>Adjust Schedule</h2><p>Shift every remaining block.</p><div class="delay-grid"><button data-delay="5">+5 min</button><button data-delay="10">+10 min</button><button data-delay="15">+15 min</button><button data-delay="-5">-5 min</button></div><button value="cancel">Close</button></form></dialog>
+
+<dialog id="moreDialog"><form method="dialog"><h2>DayOf Manager</h2><button id="loadDemo" value="cancel">Load Demo Event</button><button id="exitDayMode" value="cancel">Exit Day-of Mode</button><button id="resetApp" class="danger" value="cancel">Reset Local App</button><button value="cancel">Close</button></form></dialog>
+
+<script src="app-v01.js"></script>
+</body>
+</html>
