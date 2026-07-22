@@ -1,56 +1,28 @@
-# DayOf Manager V0.3
+# DayOf Manager V0.5
 
-## Complete UX redesign
+Full organization architecture update.
 
-Bottom navigation:
-- Live
-- Timeline
-- People
-- Issues
-- Event
+## New hierarchy
+Organization → Venues → Events → Stages → Timeline
+Organization → Team → Event Assignments
 
-## Live
-- Large current-block card
-- Huge remaining-time display
-- Current progress
-- Next block only
-- Complete, Ready, Delay, Issue
-- Compact planning summary
+## Included
+- Multiple independent organizations
+- Organization dashboard
+- Organization-scoped events, venues, team, templates, analytics, settings
+- Event assignments that reference organization team members
+- Role and permission model
+- Multi-stage event operations
+- Live Mode, timeline, check-ins, issues, announcements, event settings
+- Organization and event exports
+- Demo Orange County Fair organization
+- Local-first PWA support
 
-## Live Mode
-- Hides planning and administrative distractions
-- Enlarges the current block
-- Reduces navigation to Live and Timeline
-- Adds a Dynamic Island-style live pill
-- Keeps only essential show controls visible
+## Not yet included
+- Login and authentication
+- Cloudflare synchronization
+- Real-time collaboration
+- Server-enforced permissions
+- Subscriptions or billing
 
-## Timeline
-- Apple Calendar / Reminders-inspired vertical timeline
-- Current, complete, and remaining states
-- Complete, Ready, Delay, and Edit
-- All / Remaining / Complete filters
-
-## People
-- Search
-- Checked In and Waiting groups
-- Check In, Ready, Call, Email
-- Handoff notes
-
-## Issues
-- Critical, Waiting, and Resolved groups
-- Open, Critical, and Resolved summary
-- Reopen resolved issues
-- Priority and owner fields
-
-## Event
-- Live Mode control
-- CSV import and template
-- Sharing and event code
-- Team roles
-- Duplicate, backup, import, and delete
-
-## Compatibility
-V0.3 migrates existing local V0.2 data automatically when opened in the same browser.
-
-## Install
-Upload all files to the GitHub repository root and replace V0.2.
+These backend features can now be added without rebuilding the organization structure.
