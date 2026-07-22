@@ -1,74 +1,56 @@
-# DayOf Manager V0.2
+# DayOf Manager V0.3
 
-## Navigation redesign
+## Complete UX redesign
 
-Once an event is opened, the bottom bar is now:
-
-- Dashboard
-- Schedule
+Bottom navigation:
+- Live
+- Timeline
 - People
 - Issues
 - Event
 
-Schedule and People are always one tap away.
+## Live
+- Large current-block card
+- Huge remaining-time display
+- Current progress
+- Next block only
+- Complete, Ready, Delay, Issue
+- Compact planning summary
 
-## New Dashboard
+## Live Mode
+- Hides planning and administrative distractions
+- Enlarges the current block
+- Reduces navigation to Live and Timeline
+- Adds a Dynamic Island-style live pill
+- Keeps only essential show controls visible
 
-- Current / Next / After
-- Event progress percentage
-- People checked in
-- Open issue count
-- Completed block count
-- Quick Issue
-- Quick Delay
-- Check Everyone In
-- Handoff Notes shortcut
+## Timeline
+- Apple Calendar / Reminders-inspired vertical timeline
+- Current, complete, and remaining states
+- Complete, Ready, Delay, and Edit
+- All / Remaining / Complete filters
 
-## Schedule improvements
+## People
+- Search
+- Checked In and Waiting groups
+- Check In, Ready, Call, Email
+- Handoff notes
 
-- Add and edit blocks directly
-- Stage Ready
-- Complete / Undo
-- Delay +5
-- CSV import
-- CSV template
-- Delete schedule blocks
+## Issues
+- Critical, Waiting, and Resolved groups
+- Open, Critical, and Resolved summary
+- Reopen resolved issues
+- Priority and owner fields
 
-## People improvements
-
-- Add and edit people directly
-- Checked-in and not-checked-in summary
-- Check In
-- Ready
-- Call
-- Text
-- Email
-- Delete people
-- Handoff notes remain on the People screen
-
-## Issues improvements
-
-- Quick issue categories
-- Priority field
-- Owner field
-- Resolve issues
-- Clear / Action status
-
-## Event tab
-
-- Edit event details
-- Event code
-- Copy invite
-- Regenerate code
+## Event
+- Live Mode control
+- CSV import and template
+- Sharing and event code
 - Team roles
-- Duplicate event
-- Export / import backup
-- Delete event
+- Duplicate, backup, import, and delete
 
-## V0.2 limitation
-
-This remains local-first. It does not yet include user accounts, Stripe, or shared Cloudflare multi-device sync.
+## Compatibility
+V0.3 migrates existing local V0.2 data automatically when opened in the same browser.
 
 ## Install
-
-Upload every file in this ZIP to the GitHub repository root and replace V0.1.
+Upload all files to the GitHub repository root and replace V0.2.
